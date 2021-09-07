@@ -628,10 +628,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 3789435439455325498, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4342089429895521375, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -737,10 +733,6 @@ PrefabInstance:
     - target: {fileID: 3990364965368017107, guid: d8b1e4ed525489c47a580a202839d94b, type: 3}
       propertyPath: m_Name
       value: Walls
-      objectReference: {fileID: 0}
-    - target: {fileID: 3990364965368017107, guid: d8b1e4ed525489c47a580a202839d94b, type: 3}
-      propertyPath: m_TagString
-      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8b1e4ed525489c47a580a202839d94b, type: 3}

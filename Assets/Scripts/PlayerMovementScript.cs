@@ -28,16 +28,16 @@ public class PlayerMovementScript : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
 #if DEBUG
-        if (collision.collider.tag == "Wall")
+        if (collision.collider.attachedRigidbody.CompareTag("Wall"))
         {
             collidesWithWalls = true;
         }
 #else
-        collidesWithWalls = collision.collider.tag == "Wall";
+        collidesWithWalls = collision.collider.attachedRigidbody == "Wall";
 #endif
     }
     public void OnCollisionExit2D(Collision2D collision)
     {
-        collidesWithWalls = collision.collider.tag == "Wall" ? false : collidesWithWalls;
+        collidesWithWalls = collision.collider.attachedRigidbody.tag != "Wall" && collidesWithWalls;
     }
 }

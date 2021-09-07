@@ -32,13 +32,14 @@ public class BallScript : MonoBehaviour
         switch (collision.collider.tag)
         {
             case "Player":
-                //ќтсокочить в направлении обратном центра игрока
-                var force = new Vector2(0, -(collision.rigidbody.position.y - ball.position.y));
-                ball.AddForce(force * 25f * collision.collider.attachedRigidbody.velocity.magnitude);
+                //ќтскочить в направлении обратном центра игрока
+                var velocity = new Vector2(-collision.rigidbody.position.x * 2,
+                    -(collision.rigidbody.position.y - ball.position.y) * 25);
+                ball.velocity = velocity;
                 //≈сли попал в центр, бахнуть рандомной силы
-                if(collision.rigidbody.position.y > -1 && collision.rigidbody.position.y < 1)
+                if(collision.rigidbody.position.y > -0.1 && collision.rigidbody.position.y < 0.1)
                 {
-                    ball.AddForce(new Vector2(0, Random.Range(-10, 10)));
+                    ball.AddForce(new Vector2(0, Random.Range(-5, 5)));
                 }
                 break;
             case "Finish":
