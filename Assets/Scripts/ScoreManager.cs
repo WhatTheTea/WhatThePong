@@ -42,7 +42,7 @@ public class ScoreManager : MonoBehaviour
         p1ScoreMesh.text = P1Score.ToString();
         p2ScoreMesh.text = P2Score.ToString();
 
-        BallScript.BallScored += BallScript_BallScored;
+        Ball.BallScored += BallScript_BallScored;
     }
 
     private void BallScript_BallScored(object sender, Walls wall)

@@ -5,9 +5,9 @@ using UnityEngine;
 public class KeyboardInput : MonoBehaviour
 {
     [SerializeField]
-    private PlayerMovementScript _player1_movement;
+    private PlayerMovement _player1_movement;
     [SerializeField]
-    private PlayerMovementScript _player2_movement;
+    private PlayerMovement _player2_movement;
 
     void Update()
     {
