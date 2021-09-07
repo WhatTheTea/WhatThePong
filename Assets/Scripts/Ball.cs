@@ -28,7 +28,7 @@ public class Ball : MonoBehaviour
     public void BounceBack(Collision2D collision)
     {
         var velocity = new Vector2(-collision.rigidbody.position.x * 2,
-                    -(collision.rigidbody.position.y - Body.position.y) * 25);
+                    -(collision.rigidbody.position.y - Body.position.y) * 20);
         Body.velocity = velocity;
     }
     public void FixedUpdate()
@@ -43,13 +43,6 @@ public class Ball : MonoBehaviour
             case "Player":
                 //ќтскочить в направлении обратном центра игрока
                 BounceBack(collision);
-                //≈сли попал в центр, бахнуть рандомной силы
-                if(collision.rigidbody.position.y > -1 && collision.rigidbody.position.y < 1)
-                {
-                    Body.AddForce(new Vector2(0, Random.Range(0, 2) == 0
-                      ? 20
-                      : -20));
-                }
                 break;
             case "Finish":
                 ScoreManager.Walls side = Body.position.x < 0 ? ScoreManager.Walls.Right : ScoreManager.Walls.Left;

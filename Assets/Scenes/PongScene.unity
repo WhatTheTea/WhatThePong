@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 014b30c0d43c68142bd2b8dcc596819b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e9399a530b7cc14791013dc8fb34150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &357198350 stripped
@@ -508,6 +508,10 @@ PrefabInstance:
       value: Player Two
       objectReference: {fileID: 0}
     - target: {fileID: 6089228926890032252, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
+      propertyPath: _speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089228926890032252, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
       propertyPath: collidesWithWalls
       value: 0
       objectReference: {fileID: 0}
@@ -734,6 +738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walls
       objectReference: {fileID: 0}
+    - target: {fileID: 6313957968379894212, guid: d8b1e4ed525489c47a580a202839d94b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: f766c3f43b665e444a2a36542f195aa6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8b1e4ed525489c47a580a202839d94b, type: 3}
 --- !u!1001 &4675890952075942522
@@ -801,7 +809,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 014b30c0d43c68142bd2b8dcc596819b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e9399a530b7cc14791013dc8fb34150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6202708581060294101

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,8 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _speed;
     public float Speed { get => _speed; }
-    private bool collidesWithWalls;
-    public bool CollidesWithWalls { get => collidesWithWalls; }
+    private string collidingWall = null;
 
     private void Start()
     {
@@ -18,26 +18,28 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(Vector2 direction)
     {
-        if (!collidesWithWalls)
+        switch (collidingWall)
         {
-            var offset = _speed * Time.deltaTime;
-
-            _player.transform.Translate(direction * offset);
+            case "Up":
+                //direction = new Vector2(0, -1);
+                if (direction.y > 0) return;
+                break;
+            case "Down":
+                if (direction.y < 0) return;
+                break;
+        }
+        float offset = _speed * Time.deltaTime;
+        _player.transform.Translate(direction * offset);
+    }
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Wall")
+        {
+            collidingWall = collision.collider.name;
         }
     }
-    public void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionExit2D(Collision2D collision)
     {
-#if DEBUG
-        if (collision.collider.attachedRigidbody.CompareTag("Wall"))
-        {
-            collidesWithWalls = true;
-        }
-#else
-        collidesWithWalls = collision.collider.attachedRigidbody == "Wall";
-#endif
-    }
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        collidesWithWalls = collision.collider.attachedRigidbody.tag != "Wall" && collidesWithWalls;
+        collidingWall = null; 
     }
 }
