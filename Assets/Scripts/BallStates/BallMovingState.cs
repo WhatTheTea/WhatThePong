@@ -10,14 +10,20 @@ namespace Assets.Scripts.BallStates
 {
     public class BallMovingState : BallState
     {
-        private Collider2D collidedWith;
+        private Collision2D collidedWith;
         private bool scored;
         public BallMovingState(Ball ball, StateMachine machine) : base(ball, machine)
         {
         }
         public override void Enter() => base.Enter();
 
-        public override void Exit() => base.Exit();
+        public override void Exit()
+        {
+            base.Exit();
+
+            scored = false;
+            collidedWith = null;
+        }
 
         public override void LogicUpdate()
         {
@@ -31,8 +37,8 @@ namespace Assets.Scripts.BallStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            collidedWith = ball.OverlappingWith;
-            switch (collidedWith?.tag)
+            collidedWith = ball.CollidedWith;
+            switch (collidedWith?.collider.tag)
             {
                 case "Player":
                     BounceBack(collidedWith);
@@ -45,14 +51,14 @@ namespace Assets.Scripts.BallStates
                     break;
             }
         }
-        public void BounceBack(Collider2D from)
+        public void BounceBack(Collision2D from)
         {
-            var velocity = new Vector2(-from.attachedRigidbody.position.x * 2,
-                        -(from.attachedRigidbody.position.y - ball.Body.position.y) * 10); // попробовать заменить тело на transform
+            var velocity = new Vector2(-from.rigidbody.position.x * 2,
+                        -(from.rigidbody.position.y - ball.Body.position.y) * 10); // попробовать заменить тело на transform
             ball.Body.velocity = velocity;
 
-            if (from.attachedRigidbody.position.y - ball.Body.position.y > -0.5f 
-             && from.attachedRigidbody.position.y - ball.Body.position.y < 0.5f)
+            if (from.rigidbody.position.y - ball.Body.position.y > -0.5f 
+             && from.rigidbody.position.y - ball.Body.position.y < 0.5f)
             {
                 ball.Body.AddForce(new Vector2(0, 
                     UnityEngine.Random.Range(0, 2) == 0 ? 10 : -10));

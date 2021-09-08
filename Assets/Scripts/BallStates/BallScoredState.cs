@@ -8,10 +8,10 @@ namespace Assets.Scripts.BallStates
 {
     public class BallScoredState : BallState
     {
-        public delegate void BallScoredHandler(object sender, UnityEngine.Collider2D collidesWith);
+        public delegate void BallScoredHandler(object sender, UnityEngine.Collision2D collidesWith);
         public static event BallScoredHandler BallScored;
 
-        private UnityEngine.Collider2D playerCollider;
+        private UnityEngine.Collision2D wall;
         private Player whichPlayerShot;
         private bool ballShot;
         public BallScoredState(Ball ball, StateMachine machine) : base(ball, machine)
@@ -21,17 +21,19 @@ namespace Assets.Scripts.BallStates
         public override void Enter()
         {
             base.Enter();
-            whichPlayerShot = null;
-            ballShot = false;
 
-            playerCollider = ball.OverlappingWith;
-            BallScored?.Invoke(this, ball.OverlappingWith);
+            wall = ball.CollidedWith;
+            BallScored?.Invoke(this, ball.CollidedWith);
             ball.ResetMovement();
         }
 
         public override void Exit()
         {
             base.Exit();
+
+            whichPlayerShot = null;
+            ballShot = false;
+            wall = null;
         }
 
         public override void LogicUpdate()
@@ -46,13 +48,13 @@ namespace Assets.Scripts.BallStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            var xOffset = playerCollider.transform.position.x > 0 ? -0.5f : 0.5f;
-            ball.transform.position = new UnityEngine.Vector2(playerCollider.transform.position.x + xOffset,
-                playerCollider.transform.position.y);
+            var xOffset = wall.transform.position.x > 0 ? -0.3f : 0.3f;
+            ball.transform.position = new UnityEngine.Vector2(ball.LastCollidedPlayerBody.position.x + xOffset,
+                ball.LastCollidedPlayerBody.position.y);
 
-            if(whichPlayerShot != null && whichPlayerShot.transform.position == playerCollider.transform.position)
+            if(whichPlayerShot != null)
             {
-                ball.Body.velocity.Set(10, whichPlayerShot.Body.velocity.y * 10);
+                ball.Body.velocity = new UnityEngine.Vector2(10f, (whichPlayerShot.Body.velocity.y + 0.001f) * 10);
 
                 ballShot = true;
             }

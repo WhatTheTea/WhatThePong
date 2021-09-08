@@ -37,19 +37,17 @@ public partial class ScoreManager : MonoBehaviour
         p1ScoreMesh.text = P1Score.ToString();
         p2ScoreMesh.text = P2Score.ToString();
 
-        //BallScript.BallScored += BallScored;
+        Assets.Scripts.BallStates.BallScoredState.BallScored += BallScored;
     }
 
-    public void BallScored(object sender, Walls wall)
+    public void BallScored(object sender, Collision2D wall)
     {
-        switch (wall)
+        if (wall.collider.transform.position.x < 0)
         {
-            case Walls.Left:
-                P1Score++;
-                break;
-            case Walls.Right:
-                P2Score++;
-                break;
+            P1Score++;
+        } else
+        {
+            P2Score++;
         }
         if(P1Score == 10 || P2Score == 10)
         {

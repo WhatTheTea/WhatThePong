@@ -6,8 +6,8 @@ using UnityEngine;
 
 public partial class BallScript
 {
-    public delegate void BallScoredHandler(object sender, Walls wall);
-    public static event BallScoredHandler BallScored;
+    //public delegate void BallScoredHandler(object sender, Walls wall);
+    //public static event BallScoredHandler BallScored;
 
     private Rigidbody2D _body;
     public Rigidbody2D Body => _body;
@@ -39,7 +39,7 @@ public partial class BallScript
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (collision.collider.tag)
+        /*switch (collision.collider.tag)
         {
             case "Player":
                 //ќтскочить в направлении обратном центра игрока
@@ -59,6 +59,6 @@ public partial class BallScript
             case "Wall":
                 Body.velocity.Scale(new Vector2(2, 1));
                 break;
-        }
+        }*/
     }
 }

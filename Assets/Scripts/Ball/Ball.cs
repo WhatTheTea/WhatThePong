@@ -26,8 +26,8 @@ namespace Assets.Scripts
         public Rigidbody2D Body { get => body; private set => body = value; }
         public Collider2D HitBox { get => hitBox; private set => hitBox = value; }
         public float CollisionOverlapRadius { get => collisionOverlapRadius; }
-        public Collider2D OverlappingWith => 
-            Physics2D.OverlapCircle(Body.position, CollisionOverlapRadius,LayerMask.NameToLayer("Default"));
+        public Collision2D CollidedWith { get; private set; }
+        public Rigidbody2D LastCollidedPlayerBody { get; private set; }
         #endregion
         #region Methods
         public void ResetMovement()
@@ -65,6 +65,18 @@ namespace Assets.Scripts
         {
             stateMachine.CurrentState.PhysicsUpdate();
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            CollidedWith = collision;
+            if(collision.transform.tag == "Player")
+            {
+                LastCollidedPlayerBody = collision.rigidbody;
+            }
+        }
+        /*private void OnCollisionExit2D(Collision2D collision)
+        {
+            CollidedWith = null;
+        }*/
         #endregion
     }
 }
