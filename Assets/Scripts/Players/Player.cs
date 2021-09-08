@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    private Rigidbody2D _player;
-    public Rigidbody2D Player { get => _player; }
+    public static event System.EventHandler PlayerShot;
+
+    private Rigidbody2D _body;
+    public Rigidbody2D Body { get => _body; }
     [SerializeField]
     private float _speed;
     public float Speed { get => _speed; }
@@ -14,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _player = GetComponent<Rigidbody2D>();
+        _body = GetComponent<Rigidbody2D>();
     }
     public void Move(Vector2 direction)
     {
@@ -28,8 +30,13 @@ public class PlayerMovement : MonoBehaviour
                 if (direction.y < 0) return;
                 break;
         }
+
         float offset = _speed * Time.deltaTime;
-        _player.transform.Translate(direction * offset);
+        _body.transform.Translate(direction * offset);
+    }
+    public void Shoot()
+    {
+        PlayerShot.Invoke(this, System.EventArgs.Empty);
     }
     void OnCollisionStay2D(Collision2D collision)
     {

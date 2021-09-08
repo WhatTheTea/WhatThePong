@@ -1,16 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public partial class ScoreManager : MonoBehaviour
 {
     public static event System.EventHandler GameOver;
-
-    public enum Walls
-    {
-        Left,
-        Right
-    }
 
     [SerializeField]
     private TMPro.TextMeshProUGUI p1ScoreMesh;
@@ -42,10 +37,10 @@ public class ScoreManager : MonoBehaviour
         p1ScoreMesh.text = P1Score.ToString();
         p2ScoreMesh.text = P2Score.ToString();
 
-        Ball.BallScored += BallScript_BallScored;
+        //BallScript.BallScored += BallScored;
     }
 
-    private void BallScript_BallScored(object sender, Walls wall)
+    public void BallScored(object sender, Walls wall)
     {
         switch (wall)
         {
