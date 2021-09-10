@@ -7,26 +7,29 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static event System.EventHandler PlayerShot;
-    public static List<Player> Instances { get; private set; }
+    public static List<Player> Instances { get; private set; } = new List<Player>();
 
     #region fields
-    private Rigidbody2D _body;
     [SerializeField]
-    private readonly float _speed;
+    private float _speed;
+    private float _velocity;
     [SerializeField]
     private Collider2D _hitBox;
     #endregion
     #region properties
-    public Rigidbody2D Body => _body;
     public Collider2D HitBox => _hitBox;
     public float Speed => _speed;
+    public float Velocity { get; private set; }
     public Collider2D CollidedWall
     {
         get
         {
             var casts = new List<RaycastHit2D>();
-            int castUp = Body.Cast(Vector2.up, new ContactFilter2D(), casts, 0.1f);
-            if (castUp < 1) Body.Cast(Vector2.down, new ContactFilter2D(), casts, 0.1f);
+            var flags = new ContactFilter2D();
+            flags.NoFilter();
+
+            int castUp = HitBox.Cast(Vector2.up, flags, casts, 0.1f);
+            if (castUp < 1) HitBox.Cast(Vector2.down, flags, casts, 0.1f);
 
             return casts?.FirstOrDefault(cast => cast.collider.tag == "Wall").collider;
         }
@@ -38,11 +41,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Instances.Add(this);
-        _body = GetComponent<Rigidbody2D>();
     }
     private void OnDestroy()
     {
         Instances.Remove(this);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 #pragma warning restore IDE0051 
     #endregion
@@ -59,8 +65,8 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        float offset = _speed * Time.deltaTime;
-        _body.transform.Translate(direction * offset);
+        Velocity = _speed * Time.deltaTime;
+        transform.Translate(direction * Velocity);
     }
     public void Shoot()
     {

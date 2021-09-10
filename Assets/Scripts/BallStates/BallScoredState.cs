@@ -8,10 +8,10 @@ namespace Assets.Scripts.BallStates
 {
     public class BallScoredState : BallState
     {
-        public delegate void BallScoredHandler(object sender, UnityEngine.Collision2D collidesWith);
+        public delegate void BallScoredHandler(object sender, UnityEngine.Collider2D collidesWith);
         public static event BallScoredHandler BallScored;
 
-        private UnityEngine.Collision2D wall;
+        private Goal goal;
         private Player whichPlayerShot;
         private bool ballShot;
         public BallScoredState(Ball ball, StateMachine machine) : base(ball, machine)
@@ -22,8 +22,8 @@ namespace Assets.Scripts.BallStates
         {
             base.Enter();
 
-            wall = ball.CollidedWith;
-            BallScored?.Invoke(this, ball.CollidedWith);
+            goal = Goal.Instances.First(g => g.Name == ball.OverlappingWith.name);
+            BallScored?.Invoke(this, ball.OverlappingWith);
             ball.ResetMovement();
         }
 
@@ -33,7 +33,7 @@ namespace Assets.Scripts.BallStates
 
             whichPlayerShot = null;
             ballShot = false;
-            wall = null;
+            goal = null;
         }
 
         public override void LogicUpdate()
@@ -48,13 +48,14 @@ namespace Assets.Scripts.BallStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            var xOffset = wall.transform.position.x > 0 ? -0.3f : 0.3f;
-            ball.transform.position = new UnityEngine.Vector2(ball.LastCollidedPlayerBody.position.x + xOffset,
-                ball.LastCollidedPlayerBody.position.y);
+
+            var xOffset = goal.transform.position.x > 0 ? 0.3f : -0.3f; //TODO: Можно определить в начале 
+            ball.transform.position = new UnityEngine.Vector2(ball.LastCollidedPlayer.transform.position.x + xOffset,
+                ball.LastCollidedPlayer.transform.position.y);
 
             if(whichPlayerShot != null)
             {
-                ball.Body.velocity = new UnityEngine.Vector2(10f, (whichPlayerShot.Body.velocity.y + 0.001f) * 10);
+                ball.Body.velocity = new UnityEngine.Vector2(10f, (whichPlayerShot.Velocity + 0.001f) * 10);
 
                 ballShot = true;
             }

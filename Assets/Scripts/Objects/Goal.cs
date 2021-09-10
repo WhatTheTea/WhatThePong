@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    public static List<Goal> Instances { get; private set; }
+    public static List<Goal> Instances { get; private set; } = new List<Goal>();
 
     #region fields
+#pragma warning disable IDE0044
     [SerializeField]
-#pragma warning disable IDE0044 // Добавить модификатор только для чтения
     private Collider2D hitbox;
-#pragma warning restore IDE0044 // Добавить модификатор только для чтения
+#pragma warning restore IDE0044 
     #endregion
     #region properties
     public Collider2D HitBox => hitbox;
@@ -18,8 +18,8 @@ public class Goal : MonoBehaviour
     public string Tag => tag;
     #endregion
 
-#pragma warning disable IDE0051 // Удалите неиспользуемые закрытые члены
+#pragma warning disable IDE0051 
     private void Start() => Instances.Add(this);
     private void OnDestroy() => Instances.Remove(this);
-#pragma warning restore IDE0051 // Удалите неиспользуемые закрытые члены
+#pragma warning restore IDE0051
 }

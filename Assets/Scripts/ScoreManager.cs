@@ -40,9 +40,9 @@ public partial class ScoreManager : MonoBehaviour
         Assets.Scripts.BallStates.BallScoredState.BallScored += BallScored;
     }
 
-    public void BallScored(object sender, Collision2D wall)
+    public void BallScored(object sender, Collider2D wall)
     {
-        if (wall.collider.transform.position.x < 0)
+        if (wall.transform.position.x < 0)
         {
             P1Score++;
         } else

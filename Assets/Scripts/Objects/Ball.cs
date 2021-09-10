@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -10,7 +13,7 @@ namespace Assets.Scripts
         [SerializeField]
         public const int maxSpeed = 15;
         #endregion
-        #region Vars
+        #region fields
         public StateMachine stateMachine;
         public BallStates.BallMovingState movingState;
         public BallStates.BallScoredState scoredState;
@@ -25,8 +28,24 @@ namespace Assets.Scripts
         public Rigidbody2D Body { get => body; private set => body = value; }
         public Collider2D HitBox { get => hitBox; private set => hitBox = value; }
         //public float CollisionOverlapRadius { get => collisionOverlapRadius; }
-        public Collision2D CollidedWith { get; private set; }
-        public Rigidbody2D LastCollidedPlayerBody { get; private set; }
+        public Collider2D OverlappingWith
+        {
+            get
+            {
+                Collider2D result;
+                List<Collider2D> colliders = new List<Collider2D>();
+                Body.OverlapCollider(new ContactFilter2D(), colliders);
+
+                result = colliders.FirstOrDefault(c => c.name != "Ball");
+                if (result != default && result.tag == "Player")
+                {
+                    _lastCollidedPlayer = Player.Instances.First(p => p.name == result.name);
+                }
+                return result;
+            }
+        }
+        private Player _lastCollidedPlayer;
+        public Player LastCollidedPlayer => _lastCollidedPlayer;
         #endregion
         #region Methods
         public void ResetMovement()
@@ -64,14 +83,14 @@ namespace Assets.Scripts
         {
             stateMachine.CurrentState.PhysicsUpdate();
         }
-        private void OnCollisionEnter2D(Collision2D collision)
+        /*private void OnCollisionEnter2D(Collision2D collision)
         {
             CollidedWith = collision;
-            if(collision.transform.tag == "Player")
+            if (collision.transform.tag == "Player")
             {
-                LastCollidedPlayerBody = collision.rigidbody;
+                LastCollidedPlayer = Player.Instances.FirstOrDefault(p => p.name == collision.collider.name);
             }
-        }
+        }*/
         /*private void OnCollisionExit2D(Collision2D collision)
         {
             CollidedWith = null;
