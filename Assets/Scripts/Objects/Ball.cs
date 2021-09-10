@@ -11,21 +11,20 @@ namespace Assets.Scripts
         public const int maxSpeed = 15;
         #endregion
         #region Vars
-        //TODO: Добавить стейты
         public StateMachine stateMachine;
         public BallStates.BallMovingState movingState;
         public BallStates.BallScoredState scoredState;
 
         private Rigidbody2D body;
-        [SerializeField]
-        private float collisionOverlapRadius = 0.1f;
+        //[SerializeField]
+        //private float collisionOverlapRadius = 0.1f;
         [SerializeField]
         private Collider2D hitBox;
         #endregion
         #region Properties
         public Rigidbody2D Body { get => body; private set => body = value; }
         public Collider2D HitBox { get => hitBox; private set => hitBox = value; }
-        public float CollisionOverlapRadius { get => collisionOverlapRadius; }
+        //public float CollisionOverlapRadius { get => collisionOverlapRadius; }
         public Collision2D CollidedWith { get; private set; }
         public Rigidbody2D LastCollidedPlayerBody { get; private set; }
         #endregion
