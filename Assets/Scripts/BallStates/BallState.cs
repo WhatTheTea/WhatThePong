@@ -10,7 +10,6 @@ namespace Assets.Scripts.BallStates
     {
         protected Ball ball;
         protected StateMachine stateMachine;
-
         protected BallState(Ball ball, StateMachine machine)
         {
             this.ball = ball;
