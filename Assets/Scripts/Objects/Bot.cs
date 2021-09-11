@@ -1,28 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
 
 using UnityEngine;
 
-public class Bot : MonoBehaviour //Прикрепляется к боту
+
+namespace Scripts.Objects
 {
-    private Rigidbody2D _body;
-    private Player _botMovement;
-    [SerializeField]
-    private Rigidbody2D _ball;
-    public Rigidbody2D Body => _body;
-    public Player BotMovement => _botMovement;
-    public Rigidbody2D Ball => _ball;
-
-    void Start()
+    public class Bot : Player //Прикрепляется к боту
     {
-        _body = GetComponent<Rigidbody2D>();
-        _botMovement = _body.GetComponent<Player>();
-    }
+        private Ball _ball;
+        public Ball TargetBall => _ball;
 
-    // Update is called once per frame
-    void Update()
-    {
-        BotMovement.Move(new Vector2(0, (Ball.transform.position.y - Body.transform.position.y)));
+        // Update is called once per frame
+        private void Update()
+        {
+            BotMovement.Move(new Vector2(0, (Ball.transform.position.y - Body.transform.position.y)));
+        }
     }
 }

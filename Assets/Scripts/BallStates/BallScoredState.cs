@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Scripts.Objects;
 
-namespace Assets.Scripts.BallStates
+using Scripts;
+
+using System.Linq;
+
+namespace Scripts.BallStates
 {
     public class BallScoredState : BallState
     {
@@ -55,8 +56,8 @@ namespace Assets.Scripts.BallStates
 
             ball.Body.position = new UnityEngine.Vector2(ball.LastCollidedPlayer.transform.position.x + distance,
                 ball.LastCollidedPlayer.transform.position.y);
-            
-            if(whichPlayerShot != null && ball.LastCollidedPlayer == whichPlayerShot)
+
+            if (whichPlayerShot != null && ball.LastCollidedPlayer == whichPlayerShot)
             {
                 ballShot = true;
                 ball.Body.velocity = new UnityEngine.Vector2(10f, whichPlayerShot.Velocity);

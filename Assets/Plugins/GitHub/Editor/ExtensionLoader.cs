@@ -1,7 +1,9 @@
-using UnityEditor;
-using UnityEngine;
-using System.IO;
 using System;
+using System.IO;
+
+using UnityEditor;
+
+using UnityEngine;
 
 namespace GitHub.Unity
 {

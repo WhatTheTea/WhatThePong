@@ -1,5 +1,4 @@
-﻿
-namespace Assets.Scripts
+﻿namespace Scripts
 {
     public class StateMachine
     {

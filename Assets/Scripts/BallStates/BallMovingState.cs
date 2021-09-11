@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Scripts.Objects;
+
+using Scripts;
 
 using UnityEngine;
 
-namespace Assets.Scripts.BallStates
+namespace Scripts.BallStates
 {
     public class BallMovingState : BallState
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Scripts.Objects;
 
-namespace Assets.Scripts.BallStates
+using Scripts;
+
+namespace Scripts.BallStates
 {
     public abstract class BallState : IState
     {
@@ -13,7 +11,7 @@ namespace Assets.Scripts.BallStates
         protected BallState(Ball ball, StateMachine machine)
         {
             this.ball = ball;
-            this.stateMachine = machine;
+            stateMachine = machine;
         }
         public virtual void Enter()
         {

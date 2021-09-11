@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Scripts.Objects
 {
     [RequireComponent(typeof(CircleCollider2D))]
     public class Ball : MonoBehaviour
