@@ -38,18 +38,8 @@ public class Player : MonoBehaviour
     #endregion
     #region unity
 #pragma warning disable IDE0051 
-    private void Start()
-    {
-        Instances.Add(this);
-    }
-    private void OnDestroy()
-    {
-        Instances.Remove(this);
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
+    private void Start() => Instances.Add(this);
+    private void OnDestroy() => Instances.Remove(this);
 #pragma warning restore IDE0051 
     #endregion
     #region methods

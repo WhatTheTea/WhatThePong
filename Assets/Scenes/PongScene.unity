@@ -470,10 +470,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 48023182}
     m_Modifications:
-    - target: {fileID: -7608206376298139187, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3671190489159228821, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -523,7 +519,7 @@ PrefabInstance:
       value: Player Two
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -7608206376298139187, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
 --- !u!1 &1076072996
 GameObject:
@@ -639,14 +635,6 @@ PrefabInstance:
     - target: {fileID: 2795656830138594580, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
       propertyPath: m_Name
       value: Ball
-      objectReference: {fileID: 0}
-    - target: {fileID: 3789435439455325498, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3789435439455325498, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
-      propertyPath: m_SleepingMode
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4342089429895521375, guid: 2e6280d32a2fb3049858226c42b7f423, type: 3}
       propertyPath: m_RootOrder
@@ -767,10 +755,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 48023182}
     m_Modifications:
-    - target: {fileID: -7608206376298139187, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3671190489159228821, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -820,7 +804,7 @@ PrefabInstance:
       value: Player One
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -7608206376298139187, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d813eccdc1ae8fb4aad9d35e7dfab165, type: 3}
 --- !u!1001 &6202708581060294101
 PrefabInstance:

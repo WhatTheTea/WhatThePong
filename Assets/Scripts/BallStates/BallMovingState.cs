@@ -37,7 +37,7 @@ namespace Assets.Scripts.BallStates
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            collidedWith = ball.OverlappingWith;
+            collidedWith = ball.CollidingWith;
             switch (collidedWith?.tag)
             {
                 case "Player":
@@ -47,21 +47,24 @@ namespace Assets.Scripts.BallStates
                     scored = true;
                     break;
                 case "Wall":
-                    ball.Body.velocity.Scale(new Vector2(2, 0.5f));
+                    ball.Body.velocity.Scale(new Vector2(2, 1));
                     break;
             }
         }
         public void BounceBack(Collider2D from)
         {
-            var velocity = new Vector2(-from.transform.position.x * 2,
-                        -(from.transform.position.y - ball.Body.position.y) * 5); // попробовать заменить тело на transform
-            ball.Body.velocity = velocity;
-
-            if (from.transform.position.y - ball.Body.position.y > -0.5f 
-             && from.transform.position.y - ball.Body.position.y < 0.5f)
+            if (!scored)
             {
-                ball.Body.AddForce(new Vector2(0, 
-                    UnityEngine.Random.Range(0, 2) == 0 ? 10 : -10));
+                var yDistance = from.transform.position.y - ball.Body.position.y;
+                var velocity = new Vector2(-from.transform.position.x * 2,
+                            -yDistance * 10);
+                ball.Body.velocity = velocity;
+
+                if (yDistance > -0.5f && yDistance < 0.5f)
+                {
+                    ball.Body.AddForce(new Vector2(0,
+                        UnityEngine.Random.Range(0, 2) == 0 ? 10 : -10));
+                }
             }
         }
     }

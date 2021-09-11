@@ -10,7 +10,6 @@ namespace Assets.Scripts
     public class Ball : MonoBehaviour
     {
         #region Consts
-        [SerializeField]
         public const int maxSpeed = 15;
         #endregion
         #region fields
@@ -19,22 +18,22 @@ namespace Assets.Scripts
         public BallStates.BallScoredState scoredState;
 
         private Rigidbody2D body;
-        //[SerializeField]
-        //private float collisionOverlapRadius = 0.1f;
         [SerializeField]
         private Collider2D hitBox;
+        private Player _lastCollidedPlayer;
         #endregion
         #region Properties
         public Rigidbody2D Body { get => body; private set => body = value; }
         public Collider2D HitBox { get => hitBox; private set => hitBox = value; }
-        //public float CollisionOverlapRadius { get => collisionOverlapRadius; }
-        public Collider2D OverlappingWith
+        public Player LastCollidedPlayer => _lastCollidedPlayer;
+        public Collider2D CollidingWith
         {
             get
             {
                 Collider2D result;
                 List<Collider2D> colliders = new List<Collider2D>();
                 Body.OverlapCollider(new ContactFilter2D(), colliders);
+                //result = Physics2D.OverlapCircle(Body.position, 1.5f);
 
                 result = colliders.FirstOrDefault(c => c.name != "Ball");
                 if (result != default && result.tag == "Player")
@@ -44,22 +43,22 @@ namespace Assets.Scripts
                 return result;
             }
         }
-        private Player _lastCollidedPlayer;
-        public Player LastCollidedPlayer => _lastCollidedPlayer;
         #endregion
         #region Methods
         public void ResetMovement()
         {
             Body.position = Vector2.zero;
             Body.velocity = Vector2.zero;
+            Body.angularVelocity = 0f;
         }
         private void ThrowRandom()
         {
+            ResetMovement();
+
             float direction = Random.Range(0, 2) == 0
                           ? 10
                           : -10; // Случайно определить куда кинуть мячик
-            Body.position = Vector2.zero;
-            Body.velocity = Vector2.zero;
+
             Body.velocity = new Vector2(direction, 0);
         }
         #endregion
@@ -75,26 +74,8 @@ namespace Assets.Scripts
             stateMachine.Init(movingState);
             ThrowRandom();
         }
-        private void Update()
-        {
-            stateMachine.CurrentState.LogicUpdate();
-        }
-        private void FixedUpdate()
-        {
-            stateMachine.CurrentState.PhysicsUpdate();
-        }
-        /*private void OnCollisionEnter2D(Collision2D collision)
-        {
-            CollidedWith = collision;
-            if (collision.transform.tag == "Player")
-            {
-                LastCollidedPlayer = Player.Instances.FirstOrDefault(p => p.name == collision.collider.name);
-            }
-        }*/
-        /*private void OnCollisionExit2D(Collision2D collision)
-        {
-            CollidedWith = null;
-        }*/
+        private void Update() => stateMachine.CurrentState.LogicUpdate();
+        private void FixedUpdate() => stateMachine.CurrentState.PhysicsUpdate();
         #endregion
     }
 }
