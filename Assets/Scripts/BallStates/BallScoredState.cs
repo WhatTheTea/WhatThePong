@@ -25,9 +25,9 @@ namespace Assets.Scripts.BallStates
             whichPlayerShot = null;
 
             goal = Goal.Instances.First(g => g.Name == ball.CollidingWith.name);
-            ball.ResetMovement();
-            distance = goal.transform.position.x > 0 ? 0.9f : -0.9f;
+            distance = goal.transform.position.x > 0 ? 0.5f : -0.5f;
             BallScored?.Invoke(this, goal);
+            ball.ResetMovement();
         }
 
         public override void Exit()
@@ -55,8 +55,8 @@ namespace Assets.Scripts.BallStates
 
             ball.Body.position = new UnityEngine.Vector2(ball.LastCollidedPlayer.transform.position.x + distance,
                 ball.LastCollidedPlayer.transform.position.y);
-
-            if(whichPlayerShot != null)
+            
+            if(whichPlayerShot != null && ball.LastCollidedPlayer == whichPlayerShot)
             {
                 ballShot = true;
                 ball.Body.velocity = new UnityEngine.Vector2(10f, whichPlayerShot.Velocity);
